@@ -1,5 +1,6 @@
-package com.yevhenpanko.jcontroller;
+package com.yevhenpanko.jcontroller.services;
 
+import com.yevhenpanko.jcontroller.model.ApplicationConfig;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
@@ -8,12 +9,14 @@ import java.awt.*;
 
 import static java.awt.event.MouseEvent.BUTTON1_DOWN_MASK;
 import static java.awt.event.MouseEvent.BUTTON3_DOWN_MASK;
+import static java.lang.Math.*;
 
 public class BackgroundApplication {
-    private static final double THRESHOLD = 0.2;
-    private static final double STEP_SIZE = 10;
+    private static ApplicationConfig applicationConfig;
 
     public static void main(String[] args) throws AWTException {
+        applicationConfig = ApplicationConfig.getDefault();
+
         final Controller[] controllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
 
         final Controller controller = controllers[6];
@@ -34,12 +37,13 @@ public class BackgroundApplication {
             float xButtonValue = xButton.getPollData();
             float optionsButtonValue = optionsButton.getPollData();
 
-            if (Math.abs(xValue) > THRESHOLD || Math.abs(yValue) > THRESHOLD) {
+            if (abs(xValue) > applicationConfig.getTriggerOperatingThreshold()
+                    || abs(yValue) > applicationConfig.getTriggerOperatingThreshold()) {
                 System.out.println(String.format("%.3f", xValue) + " : " + String.format("%.3f", yValue));
 
                 final Point p = MouseInfo.getPointerInfo().getLocation();
-                int moveX = (int) (p.x + STEP_SIZE * xValue);
-                int moveY = (int) (p.y + STEP_SIZE * yValue); // y axis is inversed -1 is on top
+                int moveX = (int) (p.x + applicationConfig.getMouseMovingStepSize() * xValue);
+                int moveY = (int) (p.y + applicationConfig.getMouseMovingStepSize() * yValue);
 
                 robot.mouseMove(moveX, moveY);
             }
@@ -48,7 +52,7 @@ public class BackgroundApplication {
             optionsButtonPressed = doClick(robot, optionsButtonPressed, optionsButtonValue, BUTTON3_DOWN_MASK);
 
             try {
-                Thread.sleep(10);
+                Thread.sleep(applicationConfig.getInterrogationDelay());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -58,12 +62,16 @@ public class BackgroundApplication {
     private static boolean doClick(Robot robot, boolean buttonPressed, float buttonValue, int buttonMask){
         if (buttonValue == 1){
             if (!buttonPressed) {
+                System.out.println("Button pressed");
                 robot.mousePress(buttonMask);
-                robot.mouseRelease(buttonMask);
                 buttonPressed = true;
             }
         } else {
-            buttonPressed = false;
+            if (buttonPressed) {
+                System.out.println("Button released");
+                robot.mouseRelease(buttonMask);
+                buttonPressed = false;
+            }
         }
 
         return buttonPressed;
