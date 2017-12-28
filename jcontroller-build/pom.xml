@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>jcontroller</artifactId>
+        <groupId>com.yevhenpanko.jcontroller</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>jcontroller-build</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.yevhenpanko.jcontroller</groupId>
+            <artifactId>services</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>${maven-shade-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>jcontroller</finalName>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.yevhenpanko.jcontroller.services.BackgroundApplication</mainClass>
+                                </transformer>
+                            </transformers>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>LICENSE</exclude>
+                                        <exclude>AUTHORS</exclude>
+                                        <exclude>*.txt</exclude>
+                                        <exclude>*.html</exclude>
+                                        <exclude>*.jpeg</exclude>
+                                        <exclude>*.jpg</exclude>
+                                        <exclude>*.dll</exclude>
+                                        <exclude>*.so</exclude>
+                                        <exclude>*.jnilib</exclude>
+                                        <exclude>lombok/**</exclude> <!--lombok files-->
+                                        <exclude>Class50/**</exclude> <!--lombok files-->
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>${maven-antrun-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <configuration>
+                            <tasks>
+                                <copy file="${user.dir}/dependencies/libs/jinput-dx8_64.dll"
+                                      tofile="${project.build.directory}/jinput-dx8_64.dll"/>
+                                <copy file="${user.dir}/dependencies/libs/jinput-raw_64.dll"
+                                      tofile="${project.build.directory}/jinput-raw_64.dll"/>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
