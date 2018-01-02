@@ -10,16 +10,27 @@ import java.awt.*;
 import static java.awt.event.MouseEvent.BUTTON1_DOWN_MASK;
 import static java.awt.event.MouseEvent.BUTTON3_DOWN_MASK;
 import static java.lang.Math.*;
+import static net.java.games.input.Controller.*;
 
 public class BackgroundApplication {
     private static ApplicationConfig applicationConfig;
+
+    private static Controller getController(Controller[] controllers, Type type){
+        for (Controller controller : controllers) {
+            if (controller.getType() == type){
+                return controller;
+            }
+        }
+
+        throw new RuntimeException("Can't find STICK controller.");
+    }
 
     public static void main(String[] args) throws AWTException {
         applicationConfig = ApplicationConfig.getDefault();
 
         final Controller[] controllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
+        final Controller controller = getController(controllers, Type.STICK);
 
-        final Controller controller = controllers[6];
         final Robot robot = new Robot();
         boolean xButtonPressed = false;
         boolean optionsButtonPressed = false;
