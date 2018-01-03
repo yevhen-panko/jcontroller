@@ -18,6 +18,7 @@ public class BackgroundApplication {
         eventsProvider.register(new RightStickMovedVerticallyObserver(applicationConfig));
         eventsProvider.register(new RightDownButtonClickedObserver());
         eventsProvider.register(new OptionsButtonClickedObserver());
+        eventsProvider.register(new HomeButtonDoubleClickedObserver(applicationConfig, eventsProvider));
 
         eventsProvider.notifyObservers();
     }

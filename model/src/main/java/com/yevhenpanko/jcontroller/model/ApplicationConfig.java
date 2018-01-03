@@ -12,6 +12,7 @@ import lombok.Getter;
 @Getter
 public class ApplicationConfig {
     private long interrogationDelay;
+    private long doubleClickDelay;
     private int mouseMovingStepSize;
     private int mouseScrollingStepSize;
     private float triggerOperatingThreshold;
@@ -27,11 +28,13 @@ public class ApplicationConfig {
      */
     private ApplicationConfig(
             long interrogationDelay,
+            long doubleClickDelay,
             int mouseMovingStepSize,
             int mouseScrollingStepSize,
             float triggerOperatingThreshold
     ) {
         this.interrogationDelay = interrogationDelay;
+        this.doubleClickDelay = doubleClickDelay;
         this.mouseMovingStepSize = mouseMovingStepSize;
         this.mouseScrollingStepSize = mouseScrollingStepSize;
         this.triggerOperatingThreshold = triggerOperatingThreshold;
@@ -41,6 +44,6 @@ public class ApplicationConfig {
     }
 
     public static ApplicationConfig getDefault() {
-        return new ApplicationConfig(10L, 10, 1, 0.2F);
+        return new ApplicationConfig(10L, 300L, 10, 1, 0.2F);
     }
 }

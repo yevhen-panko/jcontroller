@@ -18,7 +18,7 @@ public class RightDownButtonClickedObserver extends AbstractMouseButtonClickedOb
     public EventDetails[] listenFor() {
         return new EventDetails[]{
                 new EventDetails(ComponentIdentifier.RIGHT_DOWN_BUTTON, EventType.BUTTON_PRESSED),
-                new EventDetails(ComponentIdentifier.RIGHT_DOWN_BUTTON, EventType.BUTTON_RELEASED),
+                new EventDetails(ComponentIdentifier.RIGHT_DOWN_BUTTON, EventType.BUTTON_RELEASED)
         };
     }
 }

@@ -55,11 +55,15 @@ public class JInputEventsProvider implements EventsProvider {
     @Override
     public void startNotification() {
         notificationStatus = STARTED;
+
+        System.out.println("Notification STARTED");
     }
 
     @Override
     public void pauseNotification() {
         notificationStatus = PAUSED;
+
+        System.out.println("Notification PAUSED");
     }
 
     @Override
@@ -78,7 +82,7 @@ public class JInputEventsProvider implements EventsProvider {
             for (Component component : controller.getComponents()) {
                 final Component.Identifier identifier = component.getIdentifier();
 
-                if (identifier == Component.Identifier.Axis.X) {
+                if (identifier == Component.Identifier.Axis.X || identifier == Component.Identifier.Axis.Z) {
                     float value = component.getPollData();
 
                     if (abs(value) > applicationConfig.getTriggerOperatingThreshold()) {
