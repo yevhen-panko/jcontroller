@@ -1,12 +1,12 @@
 package com.yevhenpanko.jcontroller.model.events;
 
-import lombok.Builder;
+import com.yevhenpanko.jcontroller.model.identification.ComponentIdentifier;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@Builder
+@AllArgsConstructor
 public class EventDetails {
-    private boolean pressed;
-    private float rotationAngle;
-    private float movingDistance;
+    private final ComponentIdentifier source;
+    private final EventType type;
 }

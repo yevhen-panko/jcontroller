@@ -1,4 +1,4 @@
-package com.yevhenpanko.jcontroller.model.events.impl;
+package com.yevhenpanko.jcontroller.model.identification;
 
 public enum ComponentIdentifier {
     UP_BUTTON,

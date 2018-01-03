@@ -1,31 +1,12 @@
 package com.yevhenpanko.jcontroller.model.events.impl;
 
-import com.yevhenpanko.jcontroller.model.events.Event;
-import com.yevhenpanko.jcontroller.model.events.EventDetails;
-import com.yevhenpanko.jcontroller.model.events.EventType;
+import com.yevhenpanko.jcontroller.model.identification.ComponentIdentifier;
 
-import static com.yevhenpanko.jcontroller.model.events.EventType.SHIFT_PRESSED;
 import static com.yevhenpanko.jcontroller.model.events.EventType.SHIFT_RELEASED;
 
-public class ShiftReleasedEvent implements Event {
-    private final String name;
+public class ShiftReleasedEvent extends AbstractEvent {
 
-    public ShiftReleasedEvent(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public EventType getEventType() {
-        return SHIFT_RELEASED;
-    }
-
-    public EventDetails getEventDetails() {
-        return EventDetails
-                .builder()
-                .pressed(false)
-                .build();
+    public ShiftReleasedEvent(ComponentIdentifier source, float value) {
+        super(source, SHIFT_RELEASED, value);
     }
 }

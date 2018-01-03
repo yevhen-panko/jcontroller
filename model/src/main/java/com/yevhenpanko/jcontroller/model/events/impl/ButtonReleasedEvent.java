@@ -1,31 +1,12 @@
 package com.yevhenpanko.jcontroller.model.events.impl;
 
-import com.yevhenpanko.jcontroller.model.events.Event;
-import com.yevhenpanko.jcontroller.model.events.EventDetails;
-import com.yevhenpanko.jcontroller.model.events.EventType;
+import com.yevhenpanko.jcontroller.model.identification.ComponentIdentifier;
 
-import static com.yevhenpanko.jcontroller.model.events.EventType.BUTTON_PRESSED;
 import static com.yevhenpanko.jcontroller.model.events.EventType.BUTTON_RELEASED;
 
-public class ButtonReleasedEvent implements Event {
-    private final String name;
+public class ButtonReleasedEvent extends AbstractEvent {
 
-    public ButtonReleasedEvent(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public EventType getEventType() {
-        return BUTTON_RELEASED;
-    }
-
-    public EventDetails getEventDetails() {
-        return EventDetails
-                .builder()
-                .pressed(false)
-                .build();
+    public ButtonReleasedEvent(ComponentIdentifier source, float value) {
+        super(source, BUTTON_RELEASED, value);
     }
 }

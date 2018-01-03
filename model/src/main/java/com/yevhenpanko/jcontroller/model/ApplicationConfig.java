@@ -2,6 +2,7 @@ package com.yevhenpanko.jcontroller.model;
 
 
 import lombok.Getter;
+import net.java.games.input.Controller;
 
 /**
  * Represents configuration details.

@@ -1,12 +1,12 @@
 package com.yevhenpanko.jcontroller.model.events;
 
+import com.yevhenpanko.jcontroller.model.identification.ComponentIdentifier;
+
 public interface Event {
 
-    String getName();
+    ComponentIdentifier getSource();
 
+    EventType getType();
 
-
-    EventType getEventType();
-
-    EventDetails getEventDetails();
+    float pollData();
 }
