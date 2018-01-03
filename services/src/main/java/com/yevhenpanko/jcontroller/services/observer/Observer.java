@@ -8,5 +8,5 @@ public interface Observer {
 
     void updateState(Event... events);
 
-    EventDetails listenFor();
+    EventDetails[] listenFor();
 }

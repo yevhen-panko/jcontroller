@@ -2,7 +2,6 @@ package com.yevhenpanko.jcontroller.model;
 
 
 import lombok.Getter;
-import net.java.games.input.Controller;
 
 /**
  * Represents configuration details.
@@ -14,6 +13,7 @@ import net.java.games.input.Controller;
 public class ApplicationConfig {
     private long interrogationDelay;
     private int mouseMovingStepSize;
+    private int mouseScrollingStepSize;
     private float triggerOperatingThreshold;
 
     /**
@@ -25,9 +25,15 @@ public class ApplicationConfig {
      * @param mouseMovingStepSize       the distance in pixels to which the cursor will be moved in one iteration
      * @param triggerOperatingThreshold the threshold to filter false trigger events. Controller may produce false events.
      */
-    private ApplicationConfig(long interrogationDelay, int mouseMovingStepSize, float triggerOperatingThreshold) {
+    private ApplicationConfig(
+            long interrogationDelay,
+            int mouseMovingStepSize,
+            int mouseScrollingStepSize,
+            float triggerOperatingThreshold
+    ) {
         this.interrogationDelay = interrogationDelay;
         this.mouseMovingStepSize = mouseMovingStepSize;
+        this.mouseScrollingStepSize = mouseScrollingStepSize;
         this.triggerOperatingThreshold = triggerOperatingThreshold;
     }
 
@@ -35,6 +41,6 @@ public class ApplicationConfig {
     }
 
     public static ApplicationConfig getDefault() {
-        return new ApplicationConfig(10L, 10, 0.2F);
+        return new ApplicationConfig(10L, 10, 1, 0.2F);
     }
 }

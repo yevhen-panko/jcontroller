@@ -1,18 +1,11 @@
 package com.yevhenpanko.jcontroller.services;
 
 import com.yevhenpanko.jcontroller.model.ApplicationConfig;
-import com.yevhenpanko.jcontroller.model.events.Event;
-import com.yevhenpanko.jcontroller.model.events.EventDetails;
 import com.yevhenpanko.jcontroller.services.eventsprovider.EventsProvider;
 import com.yevhenpanko.jcontroller.services.eventsprovider.JInputEventsProvider;
-import com.yevhenpanko.jcontroller.services.observer.Observer;
-import com.yevhenpanko.jcontroller.services.observer.impl.LeftStickMovedObserver;
-import com.yevhenpanko.jcontroller.services.observer.impl.LeftStickRotatedObserver;
-import net.java.games.input.Controller;
+import com.yevhenpanko.jcontroller.services.observer.impl.*;
 
 import java.awt.*;
-
-import static net.java.games.input.Controller.*;
 
 public class BackgroundApplication {
 
@@ -20,8 +13,11 @@ public class BackgroundApplication {
         final ApplicationConfig applicationConfig = ApplicationConfig.getDefault();
 
         final EventsProvider eventsProvider = new JInputEventsProvider();
-        eventsProvider.register(new LeftStickMovedObserver(applicationConfig));
-        eventsProvider.register(new LeftStickRotatedObserver(applicationConfig));
+        eventsProvider.register(new LeftStickMovedHorizontallyObserver(applicationConfig));
+        eventsProvider.register(new LeftStickMovedVerticallyObserver(applicationConfig));
+        eventsProvider.register(new RightStickMovedVerticallyObserver(applicationConfig));
+        eventsProvider.register(new RightDownButtonClickedObserver());
+        eventsProvider.register(new OptionsButtonClickedObserver());
 
         eventsProvider.notifyObservers();
     }

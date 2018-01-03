@@ -9,11 +9,11 @@ import com.yevhenpanko.jcontroller.services.observer.Observer;
 
 import java.awt.*;
 
-public class LeftStickMovedObserver implements Observer {
+public class LeftStickMovedVerticallyObserver implements Observer {
     private final ApplicationConfig applicationConfig;
     private final Robot robot;
 
-    public LeftStickMovedObserver(ApplicationConfig applicationConfig) throws AWTException {
+    public LeftStickMovedVerticallyObserver(ApplicationConfig applicationConfig) throws AWTException {
         this.applicationConfig = applicationConfig;
         this.robot = new Robot();
     }
@@ -22,14 +22,14 @@ public class LeftStickMovedObserver implements Observer {
     public void updateState(Event... events) {
         for (Event event : events) {
             final Point p = MouseInfo.getPointerInfo().getLocation();
-            int moveX = (int) (p.x + applicationConfig.getMouseMovingStepSize() * event.pollData());
+            int moveY = (int) (p.y + applicationConfig.getMouseMovingStepSize() * event.pollData());
 
-            robot.mouseMove(moveX, p.y);
+            robot.mouseMove(p.x, moveY);
         }
     }
 
     @Override
-    public EventDetails listenFor() {
-        return new EventDetails(ComponentIdentifier.LEFT_STICK, EventType.STICK_MOVED);
+    public EventDetails[] listenFor() {
+        return new EventDetails[]{new EventDetails(ComponentIdentifier.LEFT_STICK, EventType.STICK_MOVED_VERTICALLY)};
     }
 }
