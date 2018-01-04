@@ -3,6 +3,8 @@ package com.yevhenpanko.jcontroller.ui;
 import javax.swing.*;
 import java.awt.*;
 
+import static com.yevhenpanko.jcontroller.ui.UIConstants.BG_COLOR;
+
 public class Application {
 
     public static void main(String[] args) {
@@ -12,9 +14,16 @@ public class Application {
                 final JFrame frame = new JFrame("Testing");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setUndecorated(true);
-                frame.setBackground(new Color(39, 50, 56, 200));
+                frame.setBackground(BG_COLOR);
                 frame.setLayout(new BorderLayout());
-                frame.add(new EngKeyboard(), BorderLayout.SOUTH);
+                frame.setFocusableWindowState(false);
+
+                try {
+                    frame.add(new EngKeyboard(), BorderLayout.SOUTH);
+                } catch (AWTException e) {
+                    e.printStackTrace();
+                }
+
                 frame.pack();
 
                 final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
