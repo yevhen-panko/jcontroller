@@ -1,12 +1,10 @@
-package com.yevhenpanko.jcontroller.ui;
+package com.yevhenpanko.jcontroller.ui.keyboard;
 
 import com.yevhenpanko.jcontroller.ui.icons.Icons;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
 import static com.yevhenpanko.jcontroller.ui.UIConstants.*;

@@ -1,11 +1,11 @@
-package com.yevhenpanko.jcontroller.ui;
+package com.yevhenpanko.jcontroller.ui.keyboard;
 
 import lombok.Getter;
 
 import java.awt.event.KeyEvent;
 
-import static com.yevhenpanko.jcontroller.ui.Language.ENG;
-import static com.yevhenpanko.jcontroller.ui.Language.UNIVERSAL;
+import static com.yevhenpanko.jcontroller.ui.keyboard.Language.ENG;
+import static com.yevhenpanko.jcontroller.ui.keyboard.Language.UNIVERSAL;
 
 @Getter
 public enum Key {
@@ -45,7 +45,7 @@ public enum Key {
     VK_QUESTION_MARK("?", UNIVERSAL, "grow", true, KeyEvent.VK_SLASH),
     VK_SHIFT_RIGHT("shift", UNIVERSAL, "grow, wrap", false, KeyEvent.VK_SHIFT),
     //fourth row
-    VK_NUM_LEFT("?123", UNIVERSAL, "grow", false,  -1),
+    VK_NUM_LEFT("?123", UNIVERSAL, "grow", false, -1),
     VK_SLASH("/", UNIVERSAL, "grow", false, KeyEvent.VK_SLASH),
     VK_SPACE("space", UNIVERSAL, "span 6, grow", false, KeyEvent.VK_SPACE),
     VK_DOT_COM(".com", UNIVERSAL, "grow", false, KeyEvent.VK_PERIOD, KeyEvent.VK_C, KeyEvent.VK_O, KeyEvent.VK_M),

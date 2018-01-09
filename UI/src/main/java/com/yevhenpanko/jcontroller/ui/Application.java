@@ -4,6 +4,7 @@ import com.yevhenpanko.jcontroller.model.ApplicationConfig;
 import com.yevhenpanko.jcontroller.services.eventsprovider.EventsProvider;
 import com.yevhenpanko.jcontroller.services.eventsprovider.JInputEventsProvider;
 import com.yevhenpanko.jcontroller.services.observer.impl.*;
+import com.yevhenpanko.jcontroller.ui.keyboard.VirtualKeyboard;
 
 import java.util.concurrent.Executors;
 
