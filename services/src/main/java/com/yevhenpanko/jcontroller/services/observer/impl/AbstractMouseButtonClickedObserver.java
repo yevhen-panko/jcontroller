@@ -7,9 +7,9 @@ import com.yevhenpanko.jcontroller.services.observer.Observer;
 import java.awt.*;
 
 public abstract class AbstractMouseButtonClickedObserver implements Observer {
-    private final Robot robot;
-    private final int buttonMask;
-    private boolean buttonPressed;
+    protected final Robot robot;
+    protected final int buttonMask;
+    protected boolean buttonPressed;
 
     public AbstractMouseButtonClickedObserver(Robot robot, int buttonMask) {
         this.robot = robot;

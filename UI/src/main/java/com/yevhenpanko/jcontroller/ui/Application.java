@@ -1,40 +1,39 @@
 package com.yevhenpanko.jcontroller.ui;
 
-import javax.swing.*;
-import java.awt.*;
+import com.yevhenpanko.jcontroller.model.ApplicationConfig;
+import com.yevhenpanko.jcontroller.services.eventsprovider.EventsProvider;
+import com.yevhenpanko.jcontroller.services.eventsprovider.JInputEventsProvider;
+import com.yevhenpanko.jcontroller.services.observer.impl.*;
 
-import static com.yevhenpanko.jcontroller.ui.UIConstants.BG_COLOR;
+import java.util.concurrent.Executors;
 
 public class Application {
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                final JFrame frame = new JFrame("Testing");
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setUndecorated(true);
-                frame.setBackground(BG_COLOR);
-                frame.setLayout(new BorderLayout());
-                frame.setFocusableWindowState(false);
+        Executors.newSingleThreadExecutor().execute(() -> {
+            try {
+                final ApplicationConfig applicationConfig = ApplicationConfig.getDefault();
+                final VirtualKeyboard virtualKeyboard = new VirtualKeyboard();
 
-                try {
-                    frame.add(new EngKeyboard(), BorderLayout.SOUTH);
-                } catch (AWTException e) {
-                    e.printStackTrace();
-                }
+                Executors.newSingleThreadExecutor().execute(() -> {
+                    try {
+                        final EventsProvider eventsProvider = new JInputEventsProvider();
 
-                frame.pack();
+                        eventsProvider.register(new LeftStickMovedHorizontallyObserver(applicationConfig));
+                        eventsProvider.register(new LeftStickMovedVerticallyObserver(applicationConfig));
+                        eventsProvider.register(new RightStickMovedVerticallyObserver(applicationConfig));
+                        eventsProvider.register(new RightDownButtonClickedObserver(virtualKeyboard));
+                        eventsProvider.register(new OptionsButtonClickedObserver());
+                        eventsProvider.register(new HomeButtonDoubleClickedObserver(applicationConfig, eventsProvider));
 
-                final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-                final GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
-                final Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
-                int x = (int) rect.getMaxX() - frame.getWidth();
-                int y = (int) rect.getMaxY() - frame.getHeight();
+                        eventsProvider.notifyObservers();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
 
-                frame.setLocation(x, y);
-                frame.setAlwaysOnTop(true);
-                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }

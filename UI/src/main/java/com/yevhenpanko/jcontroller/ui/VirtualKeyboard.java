@@ -9,15 +9,20 @@ import java.util.ArrayList;
 
 import static com.yevhenpanko.jcontroller.ui.UIConstants.*;
 
-public class EngKeyboard extends JPanel {
+public class VirtualKeyboard extends JFrame {
     private final Robot robot;
     private final java.util.List<JButton> buttons;
 
-    public EngKeyboard() throws AWTException {
-        super();
+    public VirtualKeyboard() throws AWTException {
+        super("Virtual Keyboard");
 
         this.robot = new Robot();
         this.buttons = new ArrayList<>();
+
+        setUndecorated(true);
+        setBackground(BG_COLOR);
+        setLayout(new BorderLayout());
+        setFocusableWindowState(false);
 
         final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         final GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
@@ -26,13 +31,26 @@ public class EngKeyboard extends JPanel {
         int height = (int) (rect.getMaxY() / 3);
         int rowHeight = height / 4 - 10;
         final Dimension size = new Dimension((int) rect.getMaxX(), height);
-        setPreferredSize(size);
-        setBackground(TRANSPARENT_BG_COLOR);
-        setBorder(NO_BORDER);
 
-        final JPanel mainPanel = new JPanel(new MigLayout());
-        mainPanel.setBackground(TRANSPARENT_BG_COLOR);
-        mainPanel.setBorder(NO_BORDER);
+        add(createContent(rowHeight, size));
+        pack();
+
+        int x = (int) rect.getMaxX() - getWidth();
+        int y = (int) rect.getMaxY() - getHeight();
+
+        setLocation(x, y);
+        setAlwaysOnTop(true);
+    }
+
+    private JComponent createContent(int rowHeight, Dimension size) {
+        final JPanel contentPanel = new JPanel();
+        contentPanel.setBackground(TRANSPARENT_BG_COLOR);
+        contentPanel.setBorder(NO_BORDER);
+        contentPanel.setPreferredSize(size);
+
+        final JPanel buttonsPanel = new JPanel(new MigLayout());
+        buttonsPanel.setBackground(TRANSPARENT_BG_COLOR);
+        buttonsPanel.setBorder(NO_BORDER);
 
         for (Key key : Key.values()) {
             final JButton button = new JButton();
@@ -58,12 +76,14 @@ public class EngKeyboard extends JPanel {
             button.setFocusable(false);
 
             if (button.getText().length() == 1) {
-                mainPanel.add(button, key.getLayoutParams() + ", h " + rowHeight + ", w " + rowHeight);
+                buttonsPanel.add(button, key.getLayoutParams() + ", h " + rowHeight + ", w " + rowHeight);
             } else {
-                mainPanel.add(button, key.getLayoutParams() + ", h " + rowHeight);
+                buttonsPanel.add(button, key.getLayoutParams() + ", h " + rowHeight);
             }
         }
 
-        add(mainPanel);
+        contentPanel.add(buttonsPanel);
+
+        return contentPanel;
     }
 }

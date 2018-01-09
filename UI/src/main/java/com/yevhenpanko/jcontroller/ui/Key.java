@@ -1,9 +1,7 @@
 package com.yevhenpanko.jcontroller.ui;
 
-import com.yevhenpanko.jcontroller.ui.icons.Icons;
 import lombok.Getter;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 
 import static com.yevhenpanko.jcontroller.ui.Language.ENG;
@@ -68,14 +66,5 @@ public enum Key {
         this.label = label;
         this.keyCode = keyCode;
         this.language = language;
-    }
-
-    public static void main(String[] args) {
-        String fonts[] =
-                GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-
-        for (int i = 0; i < fonts.length; i++) {
-            System.out.println(fonts[i]);
-        }
     }
 }
