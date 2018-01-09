@@ -5,9 +5,12 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
 import static com.yevhenpanko.jcontroller.ui.UIConstants.*;
+import static java.awt.event.KeyEvent.VK_SHIFT;
 
 public class VirtualKeyboard extends JFrame {
     private final Robot robot;
@@ -63,10 +66,23 @@ public class VirtualKeyboard extends JFrame {
             }
 
             button.addActionListener(e -> {
-                int keyCode = key.getKeyCode();
-                if (keyCode != -1) {
-                    robot.keyPress(keyCode);
-                    robot.keyRelease(keyCode);
+                int[] keyCodes = key.getKeyCodes();
+
+                try {
+                    if (key.isShiftRequired()) {
+                        robot.keyPress(VK_SHIFT);
+                    }
+
+                    for (int keyCode : keyCodes) {
+                        if (keyCode != -1) {
+                            robot.keyPress(keyCode);
+                            robot.keyRelease(keyCode);
+                        }
+                    }
+                } finally {
+                    if (key.isShiftRequired()) {
+                        robot.keyRelease(VK_SHIFT);
+                    }
                 }
             });
 
@@ -85,5 +101,14 @@ public class VirtualKeyboard extends JFrame {
         contentPanel.add(buttonsPanel);
 
         return contentPanel;
+    }
+
+    public static void main(String[] args) {
+        Field[] fields = java.awt.event.KeyEvent.class.getDeclaredFields();
+        for (Field f : fields) {
+            if (Modifier.isStatic(f.getModifiers())) {
+                System.out.println(f.getName());
+            }
+        }
     }
 }
