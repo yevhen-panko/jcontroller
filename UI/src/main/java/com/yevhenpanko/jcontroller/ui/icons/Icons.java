@@ -8,7 +8,8 @@ import javax.swing.*;
 public enum Icons {
     BACKSPACE("/icons/backspace.png"),
     ENTER("/icons/return.png"),
-    SHIFT("/icons/shift.png");
+    SHIFT("/icons/shift.png"),
+    LANGUAGE("/icons/language.png");
 
     private String path;
 

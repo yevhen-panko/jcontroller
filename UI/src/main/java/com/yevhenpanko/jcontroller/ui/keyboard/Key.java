@@ -48,7 +48,8 @@ public enum Key {
     //fourth row
     VK_NUM_LEFT("?123", UNIVERSAL, "grow", false, -1),
     VK_SLASH("/", UNIVERSAL, "grow", false, KeyEvent.VK_SLASH),
-    VK_SPACE("space", UNIVERSAL, "span 6, grow", false, KeyEvent.VK_SPACE),
+    VK_CHANGE_LANGUAGE(Icons.LANGUAGE, UNIVERSAL, "grow", false, -1),
+    VK_SPACE("space", UNIVERSAL, "span 5, grow", false, KeyEvent.VK_SPACE),
     VK_DOT_COM(".com", UNIVERSAL, "grow", false, KeyEvent.VK_PERIOD, KeyEvent.VK_C, KeyEvent.VK_O, KeyEvent.VK_M),
     VK_DOT(".", UNIVERSAL, "grow", false, KeyEvent.VK_PERIOD),
     VK_NUM_RIGHT("?123", UNIVERSAL, "grow, wrap", false, -1);
