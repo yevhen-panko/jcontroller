@@ -1,5 +1,6 @@
 package com.yevhenpanko.jcontroller.ui.keyboard;
 
+import com.yevhenpanko.jcontroller.ui.icons.Icons;
 import lombok.Getter;
 
 import java.awt.event.KeyEvent;
@@ -20,7 +21,7 @@ public enum Key {
     VK_I("i", ENG, "grow", false, KeyEvent.VK_I),
     VK_O("o", ENG, "grow", false, KeyEvent.VK_O),
     VK_P("p", ENG, "grow", false, KeyEvent.VK_P),
-    VK_BACK_SPACE("backspace", UNIVERSAL, "wrap", false, KeyEvent.VK_BACK_SPACE),
+    VK_BACK_SPACE(Icons.BACKSPACE, UNIVERSAL, "wrap", false, KeyEvent.VK_BACK_SPACE),
     //second row
     VK_A("a", ENG, "grow", false, KeyEvent.VK_A),
     VK_S("s", ENG, "grow", false, KeyEvent.VK_S),
@@ -31,9 +32,9 @@ public enum Key {
     VK_J("j", ENG, "grow", false, KeyEvent.VK_J),
     VK_K("k", ENG, "grow", false, KeyEvent.VK_K),
     VK_L("l", ENG, "grow", false, KeyEvent.VK_L),
-    VK_ENTER("enter", UNIVERSAL, "span, grow, wrap", false, KeyEvent.VK_ENTER),
+    VK_ENTER(Icons.ENTER, UNIVERSAL, "span, grow, wrap", false, KeyEvent.VK_ENTER),
     //third row
-    VK_SHIFT_LEFT("shift", UNIVERSAL, "grow", false, KeyEvent.VK_SHIFT),
+    VK_SHIFT_LEFT(Icons.SHIFT, UNIVERSAL, "grow", false, KeyEvent.VK_SHIFT),
     VK_Z("z", ENG, "grow", false, KeyEvent.VK_Z),
     VK_X("x", ENG, "grow", false, KeyEvent.VK_X),
     VK_C("c", ENG, "grow", false, KeyEvent.VK_C),
@@ -43,7 +44,7 @@ public enum Key {
     VK_M("m", ENG, "grow", false, KeyEvent.VK_M),
     VK_EXCLAMATION_MARK("!", UNIVERSAL, "grow", true, KeyEvent.VK_1),
     VK_QUESTION_MARK("?", UNIVERSAL, "grow", true, KeyEvent.VK_SLASH),
-    VK_SHIFT_RIGHT("shift", UNIVERSAL, "grow, wrap", false, KeyEvent.VK_SHIFT),
+    VK_SHIFT_RIGHT(Icons.SHIFT, UNIVERSAL, "grow, wrap", false, KeyEvent.VK_SHIFT),
     //fourth row
     VK_NUM_LEFT("?123", UNIVERSAL, "grow", false, -1),
     VK_SLASH("/", UNIVERSAL, "grow", false, KeyEvent.VK_SLASH),
