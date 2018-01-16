@@ -1,14 +1,13 @@
 package com.yevhenpanko.jcontroller.ui.keyboard;
 
-import com.yevhenpanko.jcontroller.ui.icons.Icons;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.yevhenpanko.jcontroller.ui.UIConstants.*;
-import static java.awt.event.KeyEvent.VK_SHIFT;
 
 public class VirtualKeyboard extends JFrame {
     private final Robot robot;
@@ -53,35 +52,23 @@ public class VirtualKeyboard extends JFrame {
         buttonsPanel.setBackground(TRANSPARENT_BG_COLOR);
         buttonsPanel.setBorder(NO_BORDER);
 
-        for (Key key : Key.values()) {
+        final EnglishKeyboard englishKeyboard = new EnglishKeyboard(robot);
+        final List<VirtualKey> keys = englishKeyboard.getKeys();
+
+        for (VirtualKey key : keys) {
             final JButton button = new JButton();
             buttons.add(button);
 
-            if (key.getLabel() instanceof Icons) {
-                button.setIcon(((Icons) key.getLabel()).getImageIcon());
-            } else {
-                button.setText((String) key.getLabel());
+            if (key.getLabel() != null) {
+                button.setText(key.getLabel());
+            }
+
+            if (key.getIcon() != null) {
+                button.setIcon((key.getIcon()).getImageIcon());
             }
 
             button.addActionListener(e -> {
-                int[] keyCodes = key.getKeyCodes();
-
-                try {
-                    if (key.isShiftRequired()) {
-                        robot.keyPress(VK_SHIFT);
-                    }
-
-                    for (int keyCode : keyCodes) {
-                        if (keyCode != -1) {
-                            robot.keyPress(keyCode);
-                            robot.keyRelease(keyCode);
-                        }
-                    }
-                } finally {
-                    if (key.isShiftRequired()) {
-                        robot.keyRelease(VK_SHIFT);
-                    }
-                }
+                key.getAction().run();
             });
 
             button.setFont(DEFAULT_FONT);
