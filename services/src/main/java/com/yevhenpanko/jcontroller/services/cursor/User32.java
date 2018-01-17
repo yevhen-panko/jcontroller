@@ -6,7 +6,7 @@ import com.sun.jna.platform.win32.WinDef;
 
 import static com.sun.jna.platform.win32.WinNT.HANDLE;
 
-public interface User32 extends com.sun.jna.Library {
+public interface User32 extends com.sun.jna.platform.win32.User32 {
     User32 INSTANCE = Native.loadLibrary("User32.dll", User32.class);
 
     /**
@@ -25,4 +25,11 @@ public interface User32 extends com.sun.jna.Library {
             int cyDesired,
             int fuLoad
     );
+
+    /**
+     * https://msdn.microsoft.com/en-us/library/windows/desktop/ms646296(v=vs.85).aspx
+     */
+    int GetKeyboardLayout(WinDef.DWORD idThread);
+
+    int ActivateKeyboardLayout(int hkl, int flag);
 }

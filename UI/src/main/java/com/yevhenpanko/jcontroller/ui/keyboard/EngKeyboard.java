@@ -14,10 +14,10 @@ import static com.yevhenpanko.jcontroller.ui.icons.Icons.*;
 import static java.awt.event.KeyEvent.*;
 
 @Getter
-public class EnglishKeyboard {
+public class EngKeyboard {
     private List<VirtualKey> keys;
 
-    public EnglishKeyboard(Robot robot) {
+    public EngKeyboard(VirtualKeyboard virtualKeyboard, Robot robot) {
         this.keys = new ArrayList<>();
 
         //first row
@@ -58,7 +58,7 @@ public class EnglishKeyboard {
         //fourth row
         this.keys.add(new VirtualKey("?123", "grow", new ShowNumericKeyboardAction(robot)));
         this.keys.add(new VirtualKey("/", "grow", new DefaultKeyAction(robot, VK_SLASH)));
-        this.keys.add(new VirtualKey(LANGUAGE, "grow", new ChangeLanguageAction(robot)));
+        this.keys.add(new VirtualKey(LANGUAGE, "grow", new ChangeLanguageAction(virtualKeyboard, robot)));
         this.keys.add(new VirtualKey("space", "span 5, grow", new DefaultKeyAction(robot, VK_SPACE)));
         this.keys.add(new VirtualKey(".com", "grow", new DefaultKeyAction(robot, VK_PERIOD, VK_C, VK_O, VK_M)));
         this.keys.add(new VirtualKey(".", "grow", new DefaultKeyAction(robot, VK_PERIOD)));

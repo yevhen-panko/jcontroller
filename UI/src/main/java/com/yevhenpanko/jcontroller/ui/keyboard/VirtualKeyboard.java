@@ -1,17 +1,25 @@
 package com.yevhenpanko.jcontroller.ui.keyboard;
 
+import com.yevhenpanko.jcontroller.services.keyboard.KeyboardLayout;
+import com.yevhenpanko.jcontroller.services.keyboard.KeyboardSystemService;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.yevhenpanko.jcontroller.ui.UIConstants.*;
+import static com.yevhenpanko.jcontroller.ui.keyboard.KeyboardType.ENG;
+import static com.yevhenpanko.jcontroller.ui.keyboard.KeyboardType.RUS;
 
 public class VirtualKeyboard extends JFrame {
     private final Robot robot;
     private final java.util.List<JButton> buttons;
+    private final Dimension size;
+    private final int rowHeight;
+    private JPanel boardsPanel;
 
     public VirtualKeyboard() throws AWTException {
         super("Virtual Keyboard");
@@ -29,10 +37,11 @@ public class VirtualKeyboard extends JFrame {
         final Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
 
         int height = (int) (rect.getMaxY() / 3);
-        int rowHeight = height / 4 - 10;
-        final Dimension size = new Dimension((int) rect.getMaxX(), height);
 
-        add(createContent(rowHeight, size));
+        size = new Dimension((int) rect.getMaxX(), height);
+        rowHeight = height / 4 - 10;
+
+        add(createContent());
         pack();
 
         int x = (int) rect.getMaxX() - getWidth();
@@ -42,18 +51,74 @@ public class VirtualKeyboard extends JFrame {
         setAlwaysOnTop(true);
     }
 
-    private JComponent createContent(int rowHeight, Dimension size) {
+    public void showLayer(KeyboardType keyboardType) {
+        final CardLayout cardLayout = (CardLayout) boardsPanel.getLayout();
+        cardLayout.show(boardsPanel, keyboardType.name());
+
+        this.repaint();
+    }
+
+    public void changeLanguage(){
+        final Optional<KeyboardLayout> keyboardLayout = new KeyboardSystemService().getKeyboardLayout();
+
+        if (keyboardLayout.isPresent()) {
+            switch (keyboardLayout.get()) {
+                case ENG:
+                default:
+                    showLayer(KeyboardType.RUS);
+                    break;
+                case RUS:
+                    showLayer(KeyboardType.ENG);
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void setVisible(boolean b) {
+        final Optional<KeyboardLayout> keyboardLayout = new KeyboardSystemService().getKeyboardLayout();
+
+        if (keyboardLayout.isPresent()) {
+            switch (keyboardLayout.get()) {
+                case ENG:
+                default:
+                    showLayer(KeyboardType.ENG);
+                    break;
+                case RUS:
+                    showLayer(KeyboardType.RUS);
+                    break;
+            }
+        }
+
+        super.setVisible(b);
+    }
+
+    private JComponent createContent() {
         final JPanel contentPanel = new JPanel();
         contentPanel.setBackground(TRANSPARENT_BG_COLOR);
         contentPanel.setBorder(NO_BORDER);
         contentPanel.setPreferredSize(size);
 
+        boardsPanel = new JPanel();
+        boardsPanel.setLayout(new CardLayout());
+        boardsPanel.setBackground(TRANSPARENT_BG_COLOR);
+        boardsPanel.setBorder(NO_BORDER);
+
+        final EngKeyboard engKeyboard = new EngKeyboard(this, robot);
+        boardsPanel.add(createButtonPanel(engKeyboard.getKeys()), ENG.name());
+
+        final RusKeyboard rusKeyboard = new RusKeyboard(this, robot);
+        boardsPanel.add(createButtonPanel(rusKeyboard.getKeys()), RUS.name());
+
+        contentPanel.add(boardsPanel);
+
+        return contentPanel;
+    }
+
+    private JPanel createButtonPanel(List<VirtualKey> keys) {
         final JPanel buttonsPanel = new JPanel(new MigLayout());
         buttonsPanel.setBackground(TRANSPARENT_BG_COLOR);
         buttonsPanel.setBorder(NO_BORDER);
-
-        final EnglishKeyboard englishKeyboard = new EnglishKeyboard(robot);
-        final List<VirtualKey> keys = englishKeyboard.getKeys();
 
         for (VirtualKey key : keys) {
             final JButton button = new JButton();
@@ -83,8 +148,6 @@ public class VirtualKeyboard extends JFrame {
             }
         }
 
-        contentPanel.add(buttonsPanel);
-
-        return contentPanel;
+        return buttonsPanel;
     }
 }
