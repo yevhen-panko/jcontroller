@@ -19,7 +19,7 @@
 
     <properties>
         <!--dependencies-->
-        <jinput.version>2.0.7</jinput.version>
+        <jinput.version>2.0.9</jinput.version>
         <lombok.version>1.16.16</lombok.version>
 
         <!--plugins-->

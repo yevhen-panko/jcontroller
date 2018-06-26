@@ -2,6 +2,8 @@ package com.yevhenpanko.jcontroller.ui.keyboard;
 
 import com.yevhenpanko.jcontroller.services.keyboard.KeyboardLayout;
 import com.yevhenpanko.jcontroller.services.keyboard.KeyboardSystemService;
+import com.yevhenpanko.jcontroller.ui.keyboard.impl.EngKeyboard;
+import com.yevhenpanko.jcontroller.ui.keyboard.impl.RusKeyboard;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;

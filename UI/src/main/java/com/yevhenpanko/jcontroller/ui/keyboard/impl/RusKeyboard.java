@@ -1,5 +1,7 @@
-package com.yevhenpanko.jcontroller.ui.keyboard;
+package com.yevhenpanko.jcontroller.ui.keyboard.impl;
 
+import com.yevhenpanko.jcontroller.ui.keyboard.VirtualKey;
+import com.yevhenpanko.jcontroller.ui.keyboard.VirtualKeyboard;
 import com.yevhenpanko.jcontroller.ui.keyboard.actions.ChangeLanguageAction;
 import com.yevhenpanko.jcontroller.ui.keyboard.actions.DefaultKeyAction;
 import com.yevhenpanko.jcontroller.ui.keyboard.actions.ShiftPlusKeyAction;
@@ -56,8 +58,8 @@ public class RusKeyboard {
         this.keys.add(new VirtualKey("и", "grow", new DefaultKeyAction(robot, VK_B)));
         this.keys.add(new VirtualKey("т", "grow", new DefaultKeyAction(robot, VK_N)));
         this.keys.add(new VirtualKey("ь", "grow", new DefaultKeyAction(robot, VK_M)));
-        this.keys.add(new VirtualKey("б", "grow", new ShiftPlusKeyAction(robot, VK_LESS)));
-        this.keys.add(new VirtualKey("ю", "grow", new ShiftPlusKeyAction(robot, VK_GREATER)));
+        this.keys.add(new VirtualKey("б", "grow", new DefaultKeyAction(robot, VK_LESS)));
+        this.keys.add(new VirtualKey("ю", "grow", new DefaultKeyAction(robot, VK_GREATER)));
         this.keys.add(new VirtualKey(SHIFT, "grow, span 3, wrap", new DefaultKeyAction(robot, VK_SHIFT)));
         //fourth row
         this.keys.add(new VirtualKey("?123", "grow", new ShowNumericKeyboardAction(robot)));

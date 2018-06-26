@@ -1,5 +1,7 @@
-package com.yevhenpanko.jcontroller.ui.keyboard;
+package com.yevhenpanko.jcontroller.ui.keyboard.impl;
 
+import com.yevhenpanko.jcontroller.ui.keyboard.VirtualKey;
+import com.yevhenpanko.jcontroller.ui.keyboard.VirtualKeyboard;
 import com.yevhenpanko.jcontroller.ui.keyboard.actions.ChangeLanguageAction;
 import com.yevhenpanko.jcontroller.ui.keyboard.actions.DefaultKeyAction;
 import com.yevhenpanko.jcontroller.ui.keyboard.actions.ShiftPlusKeyAction;
